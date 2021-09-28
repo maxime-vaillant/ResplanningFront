@@ -1,9 +1,10 @@
-import {Button, Checkbox, Grid, Icon, Label, Modal, Table} from 'semantic-ui-react'
+import {Button, Checkbox, Icon, Label, Modal, Table} from 'semantic-ui-react'
 import usePlanning from '../hooks/usePlanning'
 import { removeRule } from '../helpers/PlanningHelper'
-import {isEmpty} from "lodash";
-import RulesForm from "./RulesForm";
-import {useState} from "react";
+import {isEmpty} from 'lodash'
+import RulesForm from './RulesForm'
+import {handleCloseOnModal, handleEditRule, handleOpenOnModal} from "../helpers/FormHelper";
+import useModalForm from "../hooks/useModalForm";
 
 const RulesTable = ({ name, data, setData }) => {
     const {
@@ -12,7 +13,10 @@ const RulesTable = ({ name, data, setData }) => {
 
     const rules = name === 'slot' ? data.rulesBySlot : data.rulesByPerson
 
-    const [isOpen, setIsOpen] = useState(false)
+    const {
+        modalSettings,
+        setModalSettings
+    } = useModalForm()
 
     const columnsName = name === 'person' ?
         ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Lot', 'Exigence', 'Actif'] :
@@ -21,17 +25,20 @@ const RulesTable = ({ name, data, setData }) => {
     return (
         <>
             <Modal
-                open={isOpen}
-                onClose={() => setIsOpen(false)}
+                open={modalSettings.isOpen}
+                onClose={() => handleCloseOnModal(modalSettings, setModalSettings)}
             >
                 <Modal.Header>Règle par {name === 'slot' ? 'créneau' : 'personne'}</Modal.Header>
                 <Modal.Content>
-                    <RulesForm ruleName={name} data={data} setData={setData} />
+                    <RulesForm
+                        modalSettings={modalSettings}
+                        setModalSettings={setModalSettings}
+                        ruleId={modalSettings.ruleId}
+                        ruleName={name}
+                        data={data}
+                        setData={setData}
+                    />
                 </Modal.Content>
-                <Modal.Actions>
-                    <Button negative onClick={() => setIsOpen(false)}>Annuler</Button>
-                    <Button positive>Sauvegarder</Button>
-                </Modal.Actions>
             </Modal>
             <Table celled padded color='blue'>
                 <Table.Header>
@@ -62,7 +69,7 @@ const RulesTable = ({ name, data, setData }) => {
                                         color='blue'
                                         name='edit'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => console.log()}
+                                        onClick={() => handleEditRule(modalSettings, setModalSettings, index)}
                                     />
                                 </Table.Cell>
                                 <Table.Cell>
@@ -97,10 +104,10 @@ const RulesTable = ({ name, data, setData }) => {
                                         return(
                                             <Label
                                                 key={slot}
-                                                color={slot === 'all' ? 'purple' : colors[slot%colors.length]}
+                                                color={slot === -1 ? 'purple' : colors[slot%colors.length]}
                                                 style={{ marginTop: '1vh'}}
                                             >
-                                                {slot === 'all' ? 'Tous les créneaux' : data.slots.find(e => e.key === slot).text}
+                                                {slot === -1 ? 'Tous les créneaux' : data.slots.find(e => e.key === slot).text}
                                             </Label>
                                         )
                                     })}
@@ -110,10 +117,10 @@ const RulesTable = ({ name, data, setData }) => {
                                         return(
                                             <Label
                                                 key={person}
-                                                color={person === 'all' ? 'teal' : colors[person%colors.length]}
+                                                color={person === -1 ? 'teal' : colors[person%colors.length]}
                                                 style={{ marginTop: '1vh'}}
                                             >
-                                                {person === 'all' ? 'Tout le monde' : data.people.find(e => e.key === person).text}
+                                                {person === -1 ? 'Tout le monde' : data.people.find(e => e.key === person).text}
                                             </Label>
                                         )
                                     })}
@@ -122,10 +129,10 @@ const RulesTable = ({ name, data, setData }) => {
                                     name === 'person' && (
                                         <Table.Cell style={{ textAlign: 'center' }}>
                                             {
-                                                (item.counter === 'all' && !isEmpty(item.people) && item.people[0] === 'all' && 'Tous') ||
-                                                (item.counter === 'all' && !isEmpty(item.people) && item.people[0] !== 'all' && item.people.length) ||
-                                                (item.counter === 'all' && isEmpty(item.people) && 0) ||
-                                                (item.counter !== 'all' && item.counter)
+                                                (item.counter === -1 && !isEmpty(item.people) && item.people[0] === -1 && 'Tous') ||
+                                                (item.counter === -1 && !isEmpty(item.people) && item.people[0] !== -1 && item.people.length) ||
+                                                (item.counter === -1 && isEmpty(item.people) && 0) ||
+                                                (item.counter !== -1 && item.counter)
                                             }
                                         </Table.Cell>
                                     )
@@ -146,7 +153,7 @@ const RulesTable = ({ name, data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button positive onClick={() => setIsOpen(true)}>Ajouter</Button>
+            <Button positive onClick={() => handleOpenOnModal(modalSettings, setModalSettings)}>Ajouter</Button>
         </>
     )
 }

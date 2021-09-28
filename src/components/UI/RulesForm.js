@@ -1,15 +1,15 @@
-import {Button, Container, Dropdown, Grid, Icon, Input, Label} from 'semantic-ui-react'
+import {Button, Container, Divider, Dropdown, Grid, Icon, Input, Label} from 'semantic-ui-react'
 import usePlanning from '../hooks/usePlanning'
 import useRulesForm from '../hooks/useRulesForm'
 import {
     addOnCallTimeInRule,
     addPersonInRule,
-    addSlotInRule, handleChangeOnMethod, handleChangeOnParam,
+    addSlotInRule, handleChangeOnMethod, handleChangeOnParam, handleCloseOnModal,
     removeOnCallTimeInRule, removePersonInRule,
-    removeSlotInRule
+    removeSlotInRule, submitForm
 } from "../helpers/FormHelper";
 
-const RulesForm = ({ ruleName, ruleId, data, setData }) => {
+const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, setData }) => {
     const {
         rule,
         setRule,
@@ -27,10 +27,13 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
         onCallTimesChoice,
         peopleChoice,
         slotsChoice,
-        onCallTimesChosen,
-        peopleChosen,
-        slotsChosen
     } = formData
+
+    const {
+        on_call_times: onCallTimesChosen,
+        people: peopleChosen,
+        slots: slotsChosen
+    } = rule
 
     const {
         colors
@@ -85,7 +88,7 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                                     <Icon
                                         name='remove'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => removeOnCallTimeInRule(formData, setFormData, data, onCallTimeId)}
+                                        onClick={() => removeOnCallTimeInRule(rule, setRule, formData, setFormData, data, onCallTimeId)}
                                     />
                                     {onCallTimes.find(({ key }) => key === parseInt(onCallTimeId)).text}
                                 </Label>
@@ -100,8 +103,8 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                                 horizontal
                                 key={key}
                                 color={colors[key%colors.length]}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => addOnCallTimeInRule(formData, setFormData, key)}
+                                style={{ cursor: 'pointer', marginTop: '0.5vh' }}
+                                onClick={() => addOnCallTimeInRule(rule, setRule, formData, setFormData, key)}
                             >
                                 {text}
                             </Label>
@@ -118,15 +121,15 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                                 <Label
                                     horizontal
                                     key={slot}
-                                    color={slot === 'all' ? 'purple' : colors[slot%colors.length]}
+                                    color={slot === -1 ? 'purple' : colors[slot%colors.length]}
                                     style={{ marginTop: '0.5vh'}}
                                 >
                                     <Icon
                                         name='remove'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => removeSlotInRule(formData, setFormData, data, slot)}
+                                        onClick={() => removeSlotInRule(rule, setRule, formData, setFormData, data, slot)}
                                     />
-                                    {slot === 'all' ? 'Tous les créneaux' : slots.find(({ key }) => key === slot).text}
+                                    {slot === -1 ? 'Tous les créneaux' : slots.find(({ key }) => key === slot).text}
                                 </Label>
                             )
                         }
@@ -137,9 +140,9 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                         slotsChoice.map(({ key, text }) =>
                             <Label
                                 key={key}
-                                color={key === 'all' ? 'purple' : colors[key%colors.length]}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => addSlotInRule(formData, setFormData, key)}
+                                color={key === -1 ? 'purple' : colors[key%colors.length]}
+                                style={{ cursor: 'pointer', marginTop: '0.5vh' }}
+                                onClick={() => addSlotInRule(rule, setRule, formData, setFormData, key)}
                             >
                                 {text}
                             </Label>
@@ -156,15 +159,15 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                                 <Label
                                     horizontal
                                     key={person}
-                                    color={person === 'all' ? 'teal' : colors[person%colors.length]}
+                                    color={person === -1 ? 'teal' : colors[person%colors.length]}
                                     style={{ marginTop: '0.5vh'}}
                                 >
                                     <Icon
                                         name='remove'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => removePersonInRule(formData, setFormData, data, person)}
+                                        onClick={() => removePersonInRule(rule, setRule, formData, setFormData, data, person)}
                                     />
-                                    {person === 'all' ? 'Tout le monde' : people.find(({ key }) => key === person).text}
+                                    {person === -1 ? 'Tout le monde' : people.find(({ key }) => key === person).text}
                                 </Label>
                             )
                         }
@@ -175,9 +178,9 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                         peopleChoice.map(({ key, text }) =>
                             <Label
                                 key={key}
-                                color={key === 'all' ? 'teal' : colors[key%colors.length]}
-                                style={{ cursor: 'pointer' }}
-                                onClick={() => addPersonInRule(formData, setFormData, key)}
+                                color={key === -1 ? 'teal' : colors[key%colors.length]}
+                                style={{ cursor: 'pointer', marginTop: '0.5vh' }}
+                                onClick={() => addPersonInRule(rule, setRule, formData, setFormData, key)}
                             >
                                 {text}
                             </Label>
@@ -185,6 +188,9 @@ const RulesForm = ({ ruleName, ruleId, data, setData }) => {
                     }
                 </Grid.Row>
             </Grid>
+            <Divider />
+            <Button negative onClick={() => handleCloseOnModal(modalSettings, setModalSettings)}>Annuler</Button>
+            <Button positive onClick={() => submitForm(modalSettings, setModalSettings, rule, ruleName, ruleId, data, setData)}>Sauvegarder</Button>
         </Container>
     )
 }

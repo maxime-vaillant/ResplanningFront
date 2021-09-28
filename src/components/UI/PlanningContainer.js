@@ -15,6 +15,8 @@ const PlanningContainer = ({ data, setData }) => {
         colors
     } = usePlanning()
 
+    console.log(data.planning)
+
     return (
         <>
             <Table celled padded color='green'>

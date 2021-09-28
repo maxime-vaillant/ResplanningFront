@@ -2,8 +2,8 @@ import axios from "axios";
 
 export const addSlot = (data, setData) => {
     data.slots = [...data.slots, {key: data.slotCount, text: '00h00'}]
-    data.people.forEach(person =>
-        data.planning[person.key][data.slotCount] = { available: true, onCallTime: null }
+    data.people.forEach(({ key }) =>
+        data.planning[key][data.slotCount] = { available: true, on_call_time: null }
     )
     data.slotCount += 1
     setData({...data})
@@ -13,7 +13,7 @@ export const addPerson = (data, setData) => {
     data.people = [...data.people, {key: data.personCount, text: 'Personne'}]
     data.planning[data.personCount] = {}
     data.slots.forEach(slot => {
-        data.planning[data.personCount][slot.key] = { available: true, onCallTime: null }
+        data.planning[data.personCount][slot.key] = { available: true, on_call_time: null }
     })
     data.personCount += 1
     setData({...data})
@@ -55,8 +55,8 @@ export const removeOnCallTime = (data, setData, onCallTimeId) => {
     data.onCallTimes = data.onCallTimes.filter(e => e.key !== onCallTimeId)
     data.people.forEach(person  => {
         data.slots.forEach(slot  => {
-            if (data.planning[person.key][slot.key].onCallTime === onCallTimeId){
-                data.planning[person.key][slot.key].onCallTime = null
+            if (data.planning[person.key][slot.key].on_call_time === onCallTimeId){
+                data.planning[person.key][slot.key].on_call_time = null
             }
         })
     })
@@ -88,17 +88,17 @@ export const updateOnCallTimes = (data, setData, newOnCallTime, onCallTimeId) =>
 }
 
 export const handleChangeOnAvailabilities = (data, setData, personId, slotId) => {
-    data.planning[personId][slotId] = {available:!data.planning[personId][slotId].available, onCallTime: null}
+    data.planning[personId][slotId] = {available:!data.planning[personId][slotId].available, on_call_time: null}
     setData({...data})
 }
 
 export const handleChangeOnPlanning = (data, setData, value, personId, slotId) => {
-    data.planning[personId][slotId].onCallTime = value !== '' ? data.onCallTimes.find(e => e.value === value).key : null
+    data.planning[personId][slotId].on_call_time = value !== '' ? data.onCallTimes.find(e => e.value === value).key : null
     setData({...data})
 }
 
 export const getOnCallTimeValue = (data,  personId, slotId) => {
-    const key = data.planning[personId][slotId].onCallTime
+    const key = data.planning[personId][slotId].on_call_time
     if (key !== null) {
         const onCallTime = data.onCallTimes.find(e => e.key === key)
         if (onCallTime) {
@@ -116,7 +116,7 @@ export const getCsvData = (data) => {
     data.people.forEach(person => {
         const csvRow = [data.people.find(e => e.key === person.key).text]
         data.slots.forEach(slot => {
-            const key = data.planning[person.key][slot.key].onCallTime
+            const key = data.planning[person.key][slot.key].on_call_time
             csvRow.push(key !== null ? data.onCallTimes.find(e => e.key === key).text : null)
         })
         csvData.push(csvRow)
@@ -127,7 +127,7 @@ export const getCsvData = (data) => {
 export const resetPlanning = (data, setData) => {
     data.people.forEach(person => {
         data.slots.forEach(slot => {
-            data.planning[person.key][slot.key].onCallTime = null
+            data.planning[person.key][slot.key].on_call_time = null
         })
     })
     setData({...data})
@@ -140,19 +140,18 @@ const getIdsToSend = (array) => {
 }
 
 export const generatePlanning = async (data, setData) => {
-    console.log('dataGen', data)
+    console.log(data.rulesBySlot)
     const reqData = JSON.stringify({
-        "on_call_times": getIdsToSend(data.onCallTimes),
         "planning": data.planning,
+        "on_call_times": getIdsToSend(data.onCallTimes),
         "slots": getIdsToSend(data.slots),
         "people": getIdsToSend(data.people),
         "rules_by_person": data.rulesByPerson,
         "rules_by_slot": data.rulesBySlot
     })
-
     const config = {
         method: 'POST',
-        url: 'http://localhost:8000/generate/',
+        url: 'https://resplanning-back.herokuapp.com/generate/',
         headers: {
             'Content-Type': 'application/json'
         },

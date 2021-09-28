@@ -7,16 +7,16 @@ const useRulesForm = (data, ruleName, ruleId) => {
         slots,
         rulesBySlot,
         rulesByPerson
-    } = data || {}
+    } = data
 
     const existingRule = ruleName === 'slot' ?
         rulesBySlot[ruleId] :
         rulesByPerson[ruleId]
 
-    const [rule, setRule] = useState(existingRule || {
+    const [rule, setRule] = useState(existingRule ? {...existingRule} : {
         method: "exact",
         param: 0,
-        counter: 'all',
+        counter: -1,
         slots: [],
         people: [],
         on_call_times: [],
@@ -24,21 +24,18 @@ const useRulesForm = (data, ruleName, ruleId) => {
         disable: false
     })
 
-    const filteredPeopleChoice = rule.people[0] !== 'all' ?
-        [{key: 'all', text: 'Tout le monde', value: 'all'}].concat(people.filter(({ key }) => !rule.people.includes(key))) :
+    const filteredPeopleChoice = rule.people[0] !== -1 ?
+        [{key: -1, text: 'Tout le monde', value: -1}].concat(people.filter(({ key }) => !rule.people.includes(key))) :
         []
 
-    const filteredSlotsChoice = rule.slots[0] !== 'all' ?
-        [{key: 'all', text: 'Tous les créneaux', value: 'all'}].concat(slots.filter(({ key }) => !rule.people.includes(key))) :
+    const filteredSlotsChoice = rule.slots[0] !== -1 ?
+        [{key: -1, text: 'Tous les créneaux', value: -1}].concat(slots.filter(({ key }) => !rule.slots.includes(key))) :
         []
 
     const [formData, setFormData] = useState({
         onCallTimesChoice: onCallTimes.filter(({ key }) => !rule.on_call_times.includes(String(key))),
         peopleChoice: filteredPeopleChoice,
         slotsChoice: filteredSlotsChoice,
-        onCallTimesChosen: rule.on_call_times,
-        peopleChosen: rule.people,
-        slotsChosen: rule.slots
     })
 
     return {

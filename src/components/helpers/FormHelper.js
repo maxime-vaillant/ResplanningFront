@@ -4,50 +4,90 @@ export const handleChangeOnMethod = (rule, setRule, newMethod) => {
 }
 
 export const handleChangeOnParam = (rule, setRule, newValue) => {
-    rule.param = newValue
+    rule.param = parseInt(newValue)
     setRule({...rule})
 }
 
-export const addOnCallTimeInRule = (formData, setFormData, onCallTimeId) => {
-    formData.onCallTimesChosen = [...formData.onCallTimesChosen, String(onCallTimeId)].sort()
+export const addOnCallTimeInRule = (rule, setRule, formData, setFormData, onCallTimeId) => {
+    rule.on_call_times = [...rule.on_call_times, String(onCallTimeId)].sort()
     formData.onCallTimesChoice = formData.onCallTimesChoice.filter(({ key }) => key !== onCallTimeId)
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const addSlotInRule = (formData, setFormData, slotId) => {
-    formData.slotsChosen = slotId === 'all' ? [slotId] : [...formData.slotsChosen, slotId].sort()
-    formData.slotsChoice = slotId === 'all' ? [] : formData.slotsChoice.filter(({ key }) => key !== slotId)
+export const addSlotInRule = (rule, setRule, formData, setFormData, slotId) => {
+    rule.slots = slotId === -1 ? [slotId] : [...rule.slots, slotId].sort()
+    formData.slotsChoice = slotId === -1 ? [] : formData.slotsChoice.filter(({ key }) => key !== slotId)
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const addPersonInRule = (formData, setFormData, personId) => {
-    formData.peopleChosen = personId === 'all' ? [personId] : [...formData.peopleChosen, personId].sort()
-    formData.peopleChoice = personId === 'all' ? [] : formData.peopleChoice.filter(({ key }) => key !== personId)
+export const addPersonInRule = (rule, setRule, formData, setFormData, personId) => {
+    rule.people = personId === -1 ? [personId] : [...rule.people, personId].sort()
+    formData.peopleChoice = personId === -1 ? [] : formData.peopleChoice.filter(({ key }) => key !== personId)
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const removeOnCallTimeInRule = (formData, setFormData, data, onCallTimeId) => {
-    formData.onCallTimesChosen = formData.onCallTimesChosen.filter(id => id !== onCallTimeId)
-    formData.onCallTimesChoice = data.onCallTimes.filter(({ key }) => !formData.onCallTimesChosen.includes(String(key)))
+export const removeOnCallTimeInRule = (rule, setRule, formData, setFormData, data, onCallTimeId) => {
+    rule.on_call_times = rule.on_call_times.filter(id => id !== onCallTimeId)
+    formData.onCallTimesChoice = data.onCallTimes.filter(({ key }) => !rule.on_call_times.includes(String(key)))
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const removeSlotInRule = (formData, setFormData, data, slotId) => {
-    formData.slotsChosen = formData.slotsChosen.filter(id => id !== slotId)
-    formData.slotsChoice = [{key: 'all', text: 'Tous les créneaux', value: 'all'}].concat(
-        data.slots.filter(({ key }) => !formData.slotsChosen.includes(key))
+export const removeSlotInRule = (rule, setRule, formData, setFormData, data, slotId) => {
+    rule.slots = rule.slots.filter(id => id !== slotId)
+    formData.slotsChoice = [{key: -1, text: 'Tous les créneaux', value: -1}].concat(
+        data.slots.filter(({ key }) => !rule.slots.includes(key))
     )
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const removePersonInRule = (formData, setFormData, data, personId) => {
-    formData.peopleChosen = formData.peopleChosen.filter(id => id !== personId)
-    formData.peopleChoice = [{key: 'all', text: 'Tout le monde', value: 'all'}].concat(
-        data.people.filter(({ key }) => !formData.peopleChosen.includes(key))
+export const removePersonInRule = (rule, setRule, formData, setFormData, data, personId) => {
+    rule.people = rule.people.filter(id => id !== personId)
+    formData.peopleChoice = [{key: -1, text: 'Tout le monde', value: -1}].concat(
+        data.people.filter(({ key }) => !formData.rule.people.includes(key))
     )
+    setRule({...rule})
     setFormData({...formData})
 }
 
-export const submitForm = (formData, data, setData) => {
+export const handleCloseOnModal = (modalSettings, setModalSettings) => {
+    modalSettings.isOpen = false
+    setModalSettings({...modalSettings})
+}
 
+export const handleOpenOnModal = (modalSettings, setModalSettings) => {
+    modalSettings.isOpen = true
+    modalSettings.ruleId = null
+    setModalSettings({...modalSettings})
+}
+
+export const handleEditRule = (modalSettings, setModalSettings, id) => {
+    modalSettings.isOpen = true
+    modalSettings.ruleId = id
+    setModalSettings({...modalSettings})
+}
+
+export const submitForm = (modalSettings, setModalSettings, rule, ruleName, ruleId, data, setData) => {
+    const {
+        rulesBySlot,
+        rulesByPerson
+    } = data
+
+    const rules = ruleName === 'slot' ?
+        rulesBySlot :
+        rulesByPerson
+
+    if ( rules[ruleId] ) {
+        rules[ruleId] = rule
+    } else {
+        rules.push(rule)
+    }
+
+    setData({...data})
+    modalSettings.isOpen = false
+    setModalSettings({...modalSettings})
 }

@@ -2,9 +2,9 @@ export const rulesBySlot = [
     {
         "method": "exact",
         "param": 2,
-        "counter": 'all',
-        "slots": ["all"],
-        "people": ["all"],
+        "counter": -1,
+        "slots": [-1],
+        "people": [-1],
         "on_call_times": ["0", "1"],
         "exigency": 0,
         "disable": false
@@ -12,9 +12,9 @@ export const rulesBySlot = [
     {
         "method": "at_most",
         "param": 1,
-        "counter": 'all',
+        "counter": -1,
         "slots": [0, 1, 2, 3, 4, 5, 6, 7],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["3"],
         "disable": false
@@ -22,9 +22,9 @@ export const rulesBySlot = [
     {
         "method": "at_least",
         "param": 3,
-        "counter": 'all',
+        "counter": -1,
         "slots": [0, 1, 2, 3, 4, 5, 6, 7],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["2"],
         "disable": false
@@ -32,9 +32,9 @@ export const rulesBySlot = [
     {
         "method": "at_most",
         "param": 6,
-        "counter": 'all',
+        "counter": -1,
         "slots": [0, 1, 2, 3, 4, 5, 6, 7],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["2"],
         "disable": false
@@ -42,9 +42,9 @@ export const rulesBySlot = [
     {
         "method": "exact",
         "param": 0,
-        "counter": 'all',
+        "counter": -1,
         "slots": [0, 1, 2, 3, 4, 5, 6, 7],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["4", "5"],
         "disable": false
@@ -52,9 +52,9 @@ export const rulesBySlot = [
     {
         "method": "exact",
         "param": 0,
-        "counter": 'all',
+        "counter": -1,
         "slots": [8, 9],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["2", "6", "3"],
         "disable": false
@@ -62,9 +62,9 @@ export const rulesBySlot = [
     {
         "method": "at_most",
         "param": 3,
-        "counter": 'all',
+        "counter": -1,
         "slots": [8, 9],
-        "people": ["all"],
+        "people": [-1],
         "exigency": 0,
         "on_call_times": ["5"],
         "disable": false
@@ -75,9 +75,9 @@ export const rulesByPerson = [
     {
         "method": "at_most",
         "param": 2,
-        "counter": 'all',
-        "slots": ["all"],
-        "people": ["all"],
+        "counter": -1,
+        "slots": [-1],
+        "people": [-1],
         "on_call_times": ["0", "1"],
         "exigency": 0,
         "disable":  false
@@ -85,9 +85,9 @@ export const rulesByPerson = [
     {
         "method": "at_most",
         "param": 3,
-        "counter": 'all',
-        "slots": ["all"],
-        "people": ["all"],
+        "counter": -1,
+        "slots": [-1],
+        "people": [-1],
         "on_call_times": ["0+1"],
         "exigency": 0,
         "disable":  false
@@ -96,8 +96,8 @@ export const rulesByPerson = [
         "method": "at_most",
         "param": 1,
         "counter": 2,
-        "slots": ["all"],
-        "people": ["all"],
+        "slots": [-1],
+        "people": [-1],
         "on_call_times": ["0+1", "6"],
         "exigency": 0,
         "disable":  false
@@ -106,8 +106,8 @@ export const rulesByPerson = [
         "method": "at_most",
         "param": 2,
         "counter": 3,
-        "slots": ["all"],
-        "people": ["all"],
+        "slots": [-1],
+        "people": [-1],
         "on_call_times": ["2"],
         "exigency": 0,
         "disable":  false
