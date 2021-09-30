@@ -17,7 +17,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["3"],
-        "disable": false
+        "disable": true
     },
     {
         "method": "at_least",
@@ -27,7 +27,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["2"],
-        "disable": false
+        "disable": true
     },
     {
         "method": "at_most",
@@ -37,7 +37,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["2"],
-        "disable": false
+        "disable": true
     },
     {
         "method": "exact",
@@ -47,7 +47,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["4", "5"],
-        "disable": false
+        "disable": true
     },
     {
         "method": "exact",
@@ -57,7 +57,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["2", "6", "3"],
-        "disable": false
+        "disable": true
     },
     {
         "method": "at_most",
@@ -67,7 +67,7 @@ export const rulesBySlot = [
         "people": [-1],
         "exigency": 0,
         "on_call_times": ["5"],
-        "disable": false
+        "disable": true
     },
 ]
 
@@ -80,7 +80,7 @@ export const rulesByPerson = [
         "people": [-1],
         "on_call_times": ["0", "1"],
         "exigency": 0,
-        "disable":  false
+        "disable":  true
     },
     {
         "method": "at_most",
@@ -90,7 +90,7 @@ export const rulesByPerson = [
         "people": [-1],
         "on_call_times": ["0+1"],
         "exigency": 0,
-        "disable":  false
+        "disable":  true
     },
     {
         "method": "at_most",
@@ -100,7 +100,7 @@ export const rulesByPerson = [
         "people": [-1],
         "on_call_times": ["0+1", "6"],
         "exigency": 0,
-        "disable":  false
+        "disable":  true
     },
     {
         "method": "at_most",
@@ -110,7 +110,7 @@ export const rulesByPerson = [
         "people": [-1],
         "on_call_times": ["2"],
         "exigency": 0,
-        "disable":  false
+        "disable":  true
     }
 ]
 

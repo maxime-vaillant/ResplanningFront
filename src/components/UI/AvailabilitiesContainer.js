@@ -65,8 +65,8 @@ const AvailabilitiesContainer = ({ data, setData }) => {
                                     data.slots.map(slot =>
                                         <Table.Cell
                                             selectable
-                                            positive={data.planning[person.key][slot.key].available}
-                                            negative={!data.planning[person.key][slot.key].available}
+                                            positive={slot.key in data.planning[person.key]}
+                                            negative={!(slot.key in data.planning[person.key])}
                                             onClick={() => {
                                                 handleChangeOnAvailabilities(data, setData, person.key, slot.key)
                                             }}

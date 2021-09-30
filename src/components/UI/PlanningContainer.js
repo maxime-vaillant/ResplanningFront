@@ -15,8 +15,6 @@ const PlanningContainer = ({ data, setData }) => {
         colors
     } = usePlanning()
 
-    console.log(data.planning)
-
     return (
         <>
             <Table celled padded color='green'>
@@ -66,7 +64,7 @@ const PlanningContainer = ({ data, setData }) => {
                                     data.slots.map(slot =>
                                         <Table.Cell singleLine key={person+slot+person.key+slot.key}>
                                             {
-                                                data.planning[person.key][slot.key].available ?
+                                                slot.key in data.planning[person.key] ?
                                                     <Button.Group
                                                         color={
                                                             getOnCallTimeValue(data, person.key, slot.key) !== null ?
