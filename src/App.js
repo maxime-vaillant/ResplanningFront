@@ -1,10 +1,10 @@
 import {Accordion, Container, Label, Message, Modal} from 'semantic-ui-react'
 import _ from 'lodash'
-import OnCallTimeContainer from './components/UI/OnCallTimeContainer';
-import AvailabilitiesContainer from './components/UI/AvailabilitiesContainer';
-import PlanningContainer from './components/UI/PlanningContainer';
-import usePlanning from './components/hooks/usePlanning';
-import RulesContainer from './components/UI/RulesContainer';
+import OnCallTimeContainer from './components/UI/OnCallTimeContainer'
+import AvailabilitiesContainer from './components/UI/AvailabilitiesContainer'
+import PlanningContainer from './components/UI/PlanningContainer'
+import usePlanning from './components/hooks/usePlanning'
+import RulesContainer from './components/UI/RulesContainer'
 
 function App() {
     const {
@@ -43,7 +43,7 @@ function App() {
                 }}
             >
                 <Message negative>
-                    <Message.Header>We're sorry we can't apply that discount</Message.Header>
+                    <Message.Header>Nope</Message.Header>
                 </Message>
             </Modal>
             <Accordion
