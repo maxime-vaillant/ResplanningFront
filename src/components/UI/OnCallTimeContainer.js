@@ -1,5 +1,5 @@
 import usePlanning from '../hooks/usePlanning'
-import { Icon, Label } from 'semantic-ui-react'
+import {Icon, Label, Popup} from 'semantic-ui-react'
 import EditableLabel from 'react-editable-label'
 import {addOnCallTimes, removeOnCallTime, updateOnCallTimes} from '../helpers/PlanningHelper';
 
@@ -26,12 +26,14 @@ const OnCallTimeContainer = ({ data, setData }) => {
                         </Label>
                 )
             }
-            <Icon
-                color='green'
-                name='add'
-                style={{ cursor: 'pointer' }}
-                onClick={() => addOnCallTimes(data, setData)}
-            />
+            <Popup content='Ajouter une permanence' inverted basic trigger={
+                <Icon
+                    color='green'
+                    name='add'
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => addOnCallTimes(data, setData)}
+                />
+            } />
         </>
     )
 }

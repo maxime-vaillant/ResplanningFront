@@ -1,13 +1,12 @@
 import { Button, Dropdown, Icon, Table } from 'semantic-ui-react'
 import {
     addPerson,
-    addSlot, getCsvData,
+    addSlot,
     getOnCallTimeValue,
     handleChangeOnPlanning,
     removePerson,
     removeSlot, resetPlanning
 } from '../helpers/PlanningHelper'
-import { CSVLink } from 'react-csv'
 import usePlanning from "../hooks/usePlanning";
 
 const PlanningContainer = ({ data, setData }) => {
@@ -97,14 +96,10 @@ const PlanningContainer = ({ data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button
-                circular
-                color='green'
-                icon='add'
-                onClick={() => addPerson(data, setData)}
-            />
-            <CSVLink data={getCsvData(data)} filename={"planning.csv"}><Button>Exporter en CSV</Button></CSVLink>
-            <Button color='red' onClick={() => resetPlanning(data, setData)}>RAZ</Button>
+            <Button color='green' onClick={() => {addPerson(data, setData)}}>
+                Ajouter une personne
+            </Button>
+            <Button color='red' onClick={() => resetPlanning(data, setData)}>Vider</Button>
         </>
     )
 }

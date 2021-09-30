@@ -153,7 +153,7 @@ const RulesTable = ({ name, data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button positive onClick={() => handleOpenOnModal(modalSettings, setModalSettings)}>Ajouter</Button>
+            <Button positive onClick={() => handleOpenOnModal(modalSettings, setModalSettings)}>Ajouter une règle</Button>
         </>
     )
 }
