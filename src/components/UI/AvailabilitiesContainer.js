@@ -2,7 +2,7 @@ import { Button, Icon, Table } from 'semantic-ui-react'
 import EditableLabel from 'react-editable-label'
 import {
     addPerson,
-    addSlot, generatePlanning,
+    addSlot,
     handleChangeOnAvailabilities,
     removePerson, removeSlot,
     updatePeople,
@@ -79,15 +79,9 @@ const AvailabilitiesContainer = ({ data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button
-                circular
-                color='green'
-                icon='add'
-                onClick={() => {
-                    addPerson(data, setData)
-                }}
-            />
-            <Button onClick={() => generatePlanning({...data}, setData)}>Générer</Button>
+            <Button color='green' onClick={() => {addPerson(data, setData)}}>
+                Ajouter une personne
+            </Button>
         </>
     )
 }

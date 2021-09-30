@@ -78,7 +78,7 @@ export const updateSlots = (data, setData, newSlot, slotId) => {
 }
 
 export const updatePeople = (data, setData, newPerson, personId) => {
-    data.people.find(e => e.key === personId).text = newPerson
+    data.people.find(e => e.key === personId).text = newPerson.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     setData({...data})
 }
 
@@ -134,6 +134,26 @@ export const getCsvData = (data) => {
     return csvData
 }
 
+export const resetData = (data, setData) => {
+    data = {
+        slots: [],
+        people: [],
+        onCallTimes: [],
+        rulesByPerson: [],
+        rulesBySlot: [],
+        planning: {},
+        callback: {
+            error: false,
+            message: { status: null, statusMsg: null }
+        },
+        onCallTimeCount: 0,
+        slotCount: 0,
+        personCount: 0,
+        loading: false
+    }
+    setData({...data})
+}
+
 export const resetPlanning = (data, setData) => {
     data.people.forEach(person => {
         data.slots.forEach(slot => {
@@ -152,6 +172,8 @@ const getIdsToSend = (array) => {
 }
 
 export const generatePlanning = async (data, setData) => {
+    data.loading = true
+    setData({...data})
     const reqData = JSON.stringify({
         "planning": data.planning,
         "on_call_times": getIdsToSend(data.onCallTimes),
@@ -169,15 +191,17 @@ export const generatePlanning = async (data, setData) => {
         },
         data : reqData
     }
-    axios(config)
+    await axios(config)
         .then(function (response) {
             data.planning = JSON.parse(JSON.stringify(response.data.planning))
+            data.loading = false
             setData({...data})
             console.log(data.planning)
         })
         .catch(function (error) {
             data.callback.error = true
-            data.callback.message = error
+            data.callback.message = { status: error.response.status, statusMsg: error.response.statusText }
+            data.loading = false
             setData({...data})
         });
 }

@@ -13,11 +13,12 @@ const usePlanning = () => {
         planning: {},
         callback: {
             error: false,
-            message: ''
+            message: { status: null, statusMsg: null }
         },
         onCallTimeCount: onCallTimes.length,
         slotCount: slots.length,
-        personCount: 0
+        personCount: 0,
+        loading: false
     })
 
     return {
