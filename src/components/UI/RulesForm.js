@@ -4,7 +4,7 @@ import useRulesForm from '../hooks/useRulesForm'
 import {
     addOnCallTimeInRule,
     addPersonInRule,
-    addSlotInRule, handleChangeOnMethod, handleChangeOnParam, handleCloseOnModal,
+    addSlotInRule, handleChangeOnCounter, handleChangeOnMethod, handleChangeOnParam, handleCloseOnModal,
     removeOnCallTimeInRule, removePersonInRule,
     removeSlotInRule, submitForm
 } from "../helpers/FormHelper";
@@ -187,6 +187,21 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                         )
                     }
                 </Grid.Row>
+                { ruleName === 'person' &&
+                (<Grid.Row columns={4}>
+                    <Grid.Column>
+                        <h3>Lot :</h3>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Input
+                            value={rule.counter}
+                            min={-1}
+                            onChange={(i, datas) => handleChangeOnCounter(rule, setRule, datas.value)}
+                            type='number'
+                        />
+                    </Grid.Column>
+                </Grid.Row>)
+                }
             </Grid>
             <Divider />
             <Button negative onClick={() => handleCloseOnModal(modalSettings, setModalSettings)}>Annuler</Button>

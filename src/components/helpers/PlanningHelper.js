@@ -20,7 +20,7 @@ export const addPerson = (data, setData) => {
 }
 
 export const addOnCallTimes = (data, setData) => {
-    data.onCallTimes = [...data.onCallTimes, {key: data.onCallTimeCount, text: 'Perm', value: data.count}]
+    data.onCallTimes = [...data.onCallTimes, {key: data.onCallTimeCount, text: 'Perm', value: data.onCallTimeCount}]
     data.onCallTimeCount += 1
     setData({...data})
 }

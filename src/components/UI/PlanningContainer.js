@@ -16,6 +16,7 @@ const PlanningContainer = ({ data, setData }) => {
 
     return (
         <>
+            <b>Pense à vider le planning si tu veux en générer un nouveau</b>
             <Table celled padded color='green'>
                 <Table.Header>
                     <Table.Row textAlign='center'>

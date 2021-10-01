@@ -8,6 +8,11 @@ export const handleChangeOnParam = (rule, setRule, newValue) => {
     setRule({...rule})
 }
 
+export const handleChangeOnCounter = (rule, setRule, newValue) => {
+    rule.counter = parseInt(newValue)
+    setRule({...rule})
+}
+
 export const addOnCallTimeInRule = (rule, setRule, formData, setFormData, onCallTimeId) => {
     rule.on_call_times = [...rule.on_call_times, String(onCallTimeId)].sort()
     formData.onCallTimesChoice = formData.onCallTimesChoice.filter(({ key }) => key !== onCallTimeId)
@@ -52,6 +57,16 @@ export const removePersonInRule = (rule, setRule, formData, setFormData, data, p
     )
     setRule({...rule})
     setFormData({...formData})
+}
+
+export const handleOpenConfirm = (data, setData) => {
+    data.confirmOpen = true
+    setData({...data})
+}
+
+export const handleCloseConfirm = (data, setData) => {
+    data.confirmOpen = false
+    setData({...data})
 }
 
 export const handleCloseOnModal = (modalSettings, setModalSettings) => {

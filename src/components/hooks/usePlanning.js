@@ -18,7 +18,8 @@ const usePlanning = () => {
         onCallTimeCount: onCallTimes.length,
         slotCount: slots.length,
         personCount: 0,
-        loading: false
+        loading: false,
+        confirmOpen: false
     })
 
     return {
