@@ -1,6 +1,7 @@
-import {Button, Container, Menu} from "semantic-ui-react";
+import {Button, Confirm, Container, Menu} from "semantic-ui-react";
 import {generatePlanning, getCsvData, resetData} from "../helpers/PlanningHelper";
 import {CSVLink} from "react-csv";
+import {handleCloseConfirm, handleOpenConfirm} from "../helpers/FormHelper";
 
 const MenuContainer = ({ data, setData }) => {
     return (
@@ -19,7 +20,13 @@ const MenuContainer = ({ data, setData }) => {
                         </CSVLink>
                     </Menu.Item>
                     <Menu.Item>
-                        <Button onClick={() => resetData(data, setData)} color='red'>Remise à zéro</Button>
+                        <Button onClick={() => handleOpenConfirm(data, setData)} color='red'>Remise à zéro</Button>
+                        <Confirm
+                            open={data.confirmOpen}
+                            content='Es-tu sûr.e de vouloir remettre à zéro TOUTES les données de la page (permanences, règles, personnes...) ?'
+                            onCancel={() => handleCloseConfirm(data,  setData)}
+                            onConfirm={() => resetData(data, setData)}
+                        />
                     </Menu.Item>
                 </Menu.Menu>
             </Container>
