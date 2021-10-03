@@ -127,7 +127,7 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                                     <Icon
                                         name='remove'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => removeSlotInRule(rule, setRule, formData, setFormData, data, slot)}
+                                        onClick={() => removeSlotInRule(rule, setRule, formData, setFormData, slots, slot)}
                                     />
                                     {slot === -1 ? 'Tous les créneaux' : slots.find(({ key }) => key === slot).text}
                                 </Label>
@@ -165,7 +165,7 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                                     <Icon
                                         name='remove'
                                         style={{ cursor: 'pointer' }}
-                                        onClick={() => removePersonInRule(rule, setRule, formData, setFormData, data, person)}
+                                        onClick={() => removePersonInRule(rule, setRule, formData, setFormData, people, person)}
                                     />
                                     {person === -1 ? 'Tout le monde' : people.find(({ key }) => key === person).text}
                                 </Label>

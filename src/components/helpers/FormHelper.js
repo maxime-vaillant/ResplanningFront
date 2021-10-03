@@ -41,19 +41,19 @@ export const removeOnCallTimeInRule = (rule, setRule, formData, setFormData, dat
     setFormData({...formData})
 }
 
-export const removeSlotInRule = (rule, setRule, formData, setFormData, data, slotId) => {
+export const removeSlotInRule = (rule, setRule, formData, setFormData, slots, slotId) => {
     rule.slots = rule.slots.filter(id => id !== slotId)
     formData.slotsChoice = [{key: -1, text: 'Tous les créneaux', value: -1}].concat(
-        data.slots.filter(({ key }) => !rule.slots.includes(key))
+        slots.filter(({ key }) => !rule.slots.includes(key))
     )
     setRule({...rule})
     setFormData({...formData})
 }
 
-export const removePersonInRule = (rule, setRule, formData, setFormData, data, personId) => {
+export const removePersonInRule = (rule, setRule, formData, setFormData, people, personId) => {
     rule.people = rule.people.filter(id => id !== personId)
     formData.peopleChoice = [{key: -1, text: 'Tout le monde', value: -1}].concat(
-        data.people.filter(({ key }) => !formData.rule.people.includes(key))
+        people.filter(({ key }) => !rule.people.includes(key))
     )
     setRule({...rule})
     setFormData({...formData})
