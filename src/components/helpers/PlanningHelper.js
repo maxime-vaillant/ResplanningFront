@@ -186,7 +186,7 @@ const getIdsToSend = (array) => {
     return arrayTmp
 }
 
-export const importCsv = async (data,setData, file, setIsImportOpen) => {
+export const importCsv = async (data,setData, file, setFile, setIsImportOpen) => {
     data.loading = true
     setData({...data})
     if (file !== null) {
@@ -210,6 +210,7 @@ export const importCsv = async (data,setData, file, setIsImportOpen) => {
                 console.log(error)
             });
     }
+    setFile(null)
     setIsImportOpen(false)
     data.loading = false
     setData({...data})

@@ -1,4 +1,4 @@
-import {Button, Confirm, Container, Input, Menu, Modal} from "semantic-ui-react";
+import {Button, Confirm, Container, Icon, Input, Label, Menu, Modal} from "semantic-ui-react";
 import {generatePlanning, getCsvData, importCsv, resetData} from "../helpers/PlanningHelper";
 import {CSVLink} from "react-csv";
 import {handleCloseConfirm, handleOpenConfirm} from "../helpers/FormHelper";
@@ -23,20 +23,32 @@ const MenuContainer = ({ data, setData }) => {
                         <Button color='violet' onClick={() => setIsImportOpen(true)}>Importation Frama</Button>
                         <Modal
                             open={isImportOpen}
-                            onClose={() => setIsImportOpen(false)}
+                            onClose={() => {
+                                setSelectedFile(null)
+                                setIsImportOpen(false)
+                            }}
                         >
-                            <Modal.Content>
+                            <Modal.Content style={{ textAlign: 'center' }}>
+                                <label htmlFor="file" style={{ cursor: 'pointer',fontWeight: 'bold', marginRight: '0.5vw' }}>
+                                    <Label color='violet'>Upload un fichier</Label>
+                                </label>
                                 <Input
+                                    id='file'
                                     type='file'
                                     accept='.csv'
                                     onChange={(e) => setSelectedFile(e.target.files[0])}
+                                    style={{ display: 'none' }}
                                 />
+                                { selectedFile ? <Icon color='green' name='circle' /> : <Icon color='red' name='circle outline' />}
                             </Modal.Content>
                             <Modal.Actions>
-                                <Button color='red' onClick={() => setIsImportOpen(false)}>Annuler</Button>
+                                <Button color='red' onClick={() => {
+                                    setSelectedFile(null)
+                                    setIsImportOpen(false)
+                                }}>Annuler</Button>
                                 <Button
                                     color='green'
-                                    onClick={() => importCsv(data, setData, selectedFile, setIsImportOpen)}
+                                    onClick={() => importCsv(data, setData, selectedFile, setSelectedFile, setIsImportOpen)}
                                 >
                                     Valider
                                 </Button>
