@@ -13,7 +13,7 @@ const OnCallTimeContainer = ({ data, setData }) => {
             {
                 data.onCallTimes.map(
                     onCallTime =>
-                        <Label key={onCallTime.key} color={colors[onCallTime.key]} horizontal style={{ marginTop: '1vh'}}>
+                        <Label key={onCallTime.key} color={colors[onCallTime.key%colors.length]} horizontal style={{ marginTop: '1vh'}}>
                             <Icon
                                 name='remove'
                                 style={{ cursor: 'pointer' }}

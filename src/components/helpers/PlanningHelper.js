@@ -51,6 +51,13 @@ export const removePerson = (data, setData, personId) => {
     setData({...data})
 }
 
+export const removeAllPeople = (data, setData) => {
+    const { people } = data
+    people.forEach(({ key }) => {
+        removePerson(data, setData, key)
+    })
+}
+
 export const removeOnCallTime = (data, setData, onCallTimeId) => {
     data.onCallTimes = data.onCallTimes.filter(e => e.key !== onCallTimeId)
     data.people.forEach(person  => {
@@ -70,6 +77,13 @@ export const removeRule = (rule, data, setData, index) => {
         data.rulesByPerson = data.rulesByPerson.filter((e, i) => i !== index)
     }
     setData({ ...data })
+}
+
+export const removeAllSlots = (data, setData) => {
+    const { slots } = data
+    slots.forEach(({ key }) => {
+        removeSlot(data, setData, key)
+    })
 }
 
 export const updateSlots = (data, setData, newSlot, slotId) => {
@@ -149,7 +163,8 @@ export const resetData = (data, setData) => {
         onCallTimeCount: 0,
         slotCount: 0,
         personCount: 0,
-        loading: false
+        loading: false,
+        confirmOpen: false
     }
     setData({...data})
 }
@@ -169,6 +184,35 @@ const getIdsToSend = (array) => {
     const arrayTmp = []
     array.forEach(e => arrayTmp.push(e.key))
     return arrayTmp
+}
+
+export const importCsv = async (data,setData, file, setIsImportOpen) => {
+    data.loading = true
+    setData({...data})
+    if (file !== null) {
+        const reqData = new FormData()
+        reqData.append('file', file)
+        const config = {
+            method: 'POST',
+            // url: 'https://resplanning-back.herokuapp.com/generate/',
+            url: 'http://localhost:8000/parse-csv/',
+            data : reqData
+        }
+        await axios(config)
+            .then(function (response) {
+                removeAllPeople(data, setData)
+                removeAllSlots(data, setData)
+                data.people = JSON.parse(JSON.stringify(response.data.people))
+                data.slots = JSON.parse(JSON.stringify(response.data.slots))
+                data.planning = JSON.parse(JSON.stringify(response.data.planning))
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+    }
+    setIsImportOpen(false)
+    data.loading = false
+    setData({...data})
 }
 
 export const generatePlanning = async (data, setData) => {

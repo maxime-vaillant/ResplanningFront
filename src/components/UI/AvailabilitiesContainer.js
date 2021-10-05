@@ -43,12 +43,7 @@ const AvailabilitiesContainer = ({ data, setData }) => {
                             />
                         </Table.Cell>
                         <Table.Cell>
-                            <Button
-                                circular
-                                color='green'
-                                icon='add'
-                                onClick={() => addSlot(data, setData)}
-                            />
+                            <Button color='green' onClick={() => addSlot(data, setData)}>Insérer</Button>
                         </Table.Cell>
                     </Table.Row>
                 </Table.Header>
