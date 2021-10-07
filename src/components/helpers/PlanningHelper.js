@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 export const addSlot = (data, setData) => {
     data.slots = [...data.slots, {key: data.slotCount, text: '00h00'}]
@@ -68,6 +68,13 @@ export const removeOnCallTime = (data, setData, onCallTimeId) => {
         })
     })
     setData({...data})
+}
+
+export const removeAllOnCallTime = (data, setData) => {
+    const { onCallTimes } = data
+    onCallTimes.forEach(({ key }) => {
+        removeOnCallTime(data, setData, key)
+    })
 }
 
 export const removeRule = (rule, data, setData, index) => {
@@ -186,7 +193,36 @@ const getIdsToSend = (array) => {
     return arrayTmp
 }
 
-export const importCsv = async (data,setData, file, setFile, setIsImportOpen) => {
+export const importRules = async (data, setData, file, setFile, setIsRuleOpen) => {
+    if (file !== null) {
+        let response = '{}'
+        await new Promise((resolve) => {
+            const reader = new FileReader()
+            reader.onload = function() {
+                response = reader.result
+                resolve()
+            }
+            reader.readAsText(file)
+        })
+        const newRules = JSON.parse(response)
+        const {
+            onCallTimes,
+            rulesByPerson,
+            rulesBySlot,
+            onCallTimeCount
+        } = newRules
+        removeAllOnCallTime(data, setData)
+        data.onCallTimes = onCallTimes
+        data.rulesBySlot = rulesBySlot
+        data.rulesByPerson = rulesByPerson
+        data.onCallTimeCount = onCallTimeCount
+        setData({...data})
+        setFile(null)
+    }
+    setIsRuleOpen(false)
+}
+
+export const importCsv = async (data, setData, file, setFile, setIsImportOpen) => {
     data.loading = true
     setData({...data})
     if (file !== null) {
@@ -204,6 +240,8 @@ export const importCsv = async (data,setData, file, setFile, setIsImportOpen) =>
                 removeAllSlots(data, setData)
                 data.people = JSON.parse(JSON.stringify(response.data.people))
                 data.slots = JSON.parse(JSON.stringify(response.data.slots))
+                data.personCount = data.people.length
+                data.slotCount = data.slots.length
                 data.planning = JSON.parse(JSON.stringify(response.data.planning))
             })
             .catch(function (error) {
