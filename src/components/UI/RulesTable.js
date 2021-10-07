@@ -107,7 +107,7 @@ const RulesTable = ({ name, data, setData }) => {
                                                 color={slot === -1 ? 'purple' : colors[slot%colors.length]}
                                                 style={{ marginTop: '1vh'}}
                                             >
-                                                {slot === -1 ? 'Tous les créneaux' : data.slots.find(e => e.key === slot).text}
+                                                {slot === -1 ? 'Tous les créneaux' : data.slots.find(e => e.key === slot)?.text}
                                             </Label>
                                         )
                                     })}

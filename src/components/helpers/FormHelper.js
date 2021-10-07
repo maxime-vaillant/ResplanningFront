@@ -21,14 +21,14 @@ export const addOnCallTimeInRule = (rule, setRule, formData, setFormData, onCall
 }
 
 export const addSlotInRule = (rule, setRule, formData, setFormData, slotId) => {
-    rule.slots = slotId === -1 ? [slotId] : [...rule.slots, slotId].sort()
+    rule.slots = slotId === -1 ? [slotId] : [...rule.slots, slotId].sort((a, b) => a.key - b.key)
     formData.slotsChoice = slotId === -1 ? [] : formData.slotsChoice.filter(({ key }) => key !== slotId)
     setRule({...rule})
     setFormData({...formData})
 }
 
 export const addPersonInRule = (rule, setRule, formData, setFormData, personId) => {
-    rule.people = personId === -1 ? [personId] : [...rule.people, personId].sort()
+    rule.people = personId === -1 ? [personId] : [...rule.people, personId].sort((a, b) => a.key - b.key)
     formData.peopleChoice = personId === -1 ? [] : formData.peopleChoice.filter(({ key }) => key !== personId)
     setRule({...rule})
     setFormData({...formData})
