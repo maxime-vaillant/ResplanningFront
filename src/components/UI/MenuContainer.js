@@ -46,7 +46,6 @@ const MenuContainer = ({ data, setData }) => {
                                     }
                                     style={{ cursor: 'pointer'}}
                                 >Exporter</Label>
-                                {/*
                                 <Divider />
                                   <label htmlFor="file" style={{ cursor: 'pointer',fontWeight: 'bold', marginRight: '0.5vw' }}>
                                     <Label color='violet'>Importer</Label>
@@ -59,7 +58,6 @@ const MenuContainer = ({ data, setData }) => {
                                     style={{ display: 'none' }}
                                 />
                                 { selectedRuleFile ? <Icon color='green' name='circle' /> : <Icon color='red' name='circle outline' />}
-                                */}
                             </Modal.Content>
                             <Modal.Actions>
                                 <Button color='red' onClick={() => setIsRuleOpen(false)}>Annuler</Button>
