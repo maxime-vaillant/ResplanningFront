@@ -193,6 +193,22 @@ const getIdsToSend = (array) => {
     return arrayTmp
 }
 
+const adaptImportRules = (data, rules) => {
+    rules.forEach( rule => {
+        if (rule.slots.length > 0 && rule.slots[0] !== -1) {
+            rule.slots = rule.slots.filter(id => data.slots.find(({ key }) => key === id))
+        } else {
+            rule.slots = [-1]
+        }
+        if (rule.people.length > 0 && rule.people[0] !== -1) {
+            rule.people = rule.people.filter(id => data.people.find(({ key }) => key === id))
+        } else {
+            rule.people = [-1]
+        }
+    })
+    return rules
+}
+
 export const importRules = async (data, setData, file, setFile, setIsRuleOpen) => {
     if (file !== null) {
         let response = '{}'
@@ -212,9 +228,10 @@ export const importRules = async (data, setData, file, setFile, setIsRuleOpen) =
             onCallTimeCount
         } = newRules
         removeAllOnCallTime(data, setData)
+        console.log(adaptImportRules(data, rulesBySlot))
         data.onCallTimes = onCallTimes
-        data.rulesBySlot = rulesBySlot
-        data.rulesByPerson = rulesByPerson
+        data.rulesBySlot = adaptImportRules(data, rulesBySlot)
+        data.rulesByPerson = adaptImportRules(data, rulesByPerson)
         data.onCallTimeCount = onCallTimeCount
         setData({...data})
         setFile(null)
@@ -230,8 +247,8 @@ export const importCsv = async (data, setData, file, setFile, setIsImportOpen) =
         reqData.append('file', file)
         const config = {
             method: 'POST',
-            // url: 'https://resplanning-back.herokuapp.com/generate/',
-            url: 'http://localhost:8000/parse-csv/',
+            url: 'https://resplanning-back.herokuapp.com/parse-csv/',
+            // url: 'http://localhost:8000/parse-csv/',
             data : reqData
         }
         await axios(config)
