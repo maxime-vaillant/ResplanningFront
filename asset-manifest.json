@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/ResplanningFront/static/js/main.52d04f9e.chunk.js",
-    "main.js.map": "/ResplanningFront/static/js/main.52d04f9e.chunk.js.map",
+    "main.js": "/ResplanningFront/static/js/main.cff974ec.chunk.js",
+    "main.js.map": "/ResplanningFront/static/js/main.cff974ec.chunk.js.map",
     "runtime-main.js": "/ResplanningFront/static/js/runtime-main.01d86483.js",
     "runtime-main.js.map": "/ResplanningFront/static/js/runtime-main.01d86483.js.map",
     "static/css/2.efb3ffce.chunk.css": "/ResplanningFront/static/css/2.efb3ffce.chunk.css",
-    "static/js/2.83ca7bb2.chunk.js": "/ResplanningFront/static/js/2.83ca7bb2.chunk.js",
-    "static/js/2.83ca7bb2.chunk.js.map": "/ResplanningFront/static/js/2.83ca7bb2.chunk.js.map",
+    "static/js/2.0a453d42.chunk.js": "/ResplanningFront/static/js/2.0a453d42.chunk.js",
+    "static/js/2.0a453d42.chunk.js.map": "/ResplanningFront/static/js/2.0a453d42.chunk.js.map",
     "index.html": "/ResplanningFront/index.html",
     "static/css/2.efb3ffce.chunk.css.map": "/ResplanningFront/static/css/2.efb3ffce.chunk.css.map",
-    "static/js/2.83ca7bb2.chunk.js.LICENSE.txt": "/ResplanningFront/static/js/2.83ca7bb2.chunk.js.LICENSE.txt",
+    "static/js/2.0a453d42.chunk.js.LICENSE.txt": "/ResplanningFront/static/js/2.0a453d42.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/ResplanningFront/static/media/outline-icons.ddae9b1b.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.01d86483.js",
     "static/css/2.efb3ffce.chunk.css",
-    "static/js/2.83ca7bb2.chunk.js",
-    "static/js/main.52d04f9e.chunk.js"
+    "static/js/2.0a453d42.chunk.js",
+    "static/js/main.cff974ec.chunk.js"
   ]
 }
