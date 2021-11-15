@@ -37,9 +37,9 @@ const MenuContainer = ({ data, setData }) => {
                                             onCallTimes: data.onCallTimes,
                                             rulesByPerson: data.rulesByPerson,
                                             rulesBySlot: data.rulesBySlot,
-                                            onCallTimesCount: data.onCallTimesCount,
                                             slots: data.slots,
-                                            slotCount: data.slotCount
+                                            slotCount: data.slotCount,
+                                            onCallTimesCount: data.onCallTimesCount,
                                         },
                                         fileName: 'resplanning-config',
                                         exportType: exportFromJSON.types.json})

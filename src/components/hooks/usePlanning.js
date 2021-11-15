@@ -1,8 +1,17 @@
 import { useState } from 'react'
-import {onCallTimes, rulesByPerson, rulesBySlot, slots} from "../../assets/Pic";
+import config from '../../assets/resplanning-config-2.json'
+
+const {
+    onCallTimes,
+    rulesByPerson,
+    rulesBySlot,
+    slots,
+    slotCount,
+    onCallTimeCount
+} = config
 
 const usePlanning = () => {
-    const colors = ['red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink', 'brown']
+    const colors = ['blue', 'red', 'orange', 'yellow', 'olive', 'green', 'teal', 'violet', 'purple', 'pink', 'brown']
 
     const [data, setData] = useState({
         slots: slots,
@@ -15,8 +24,8 @@ const usePlanning = () => {
             error: false,
             message: { status: null, statusMsg: null }
         },
-        onCallTimeCount: onCallTimes.length,
-        slotCount: slots.length,
+        onCallTimeCount: onCallTimeCount,
+        slotCount: slotCount,
         personCount: 0,
         loading: false,
         confirmOpen: false

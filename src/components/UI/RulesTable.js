@@ -40,6 +40,12 @@ const RulesTable = ({ name, data, setData }) => {
                     />
                 </Modal.Content>
             </Modal>
+            {
+                name === 'slot' &&
+                <div>
+                    <b>Si une permanence n'apparaît pas sur un créneau, elle est automatiquement désactivée</b>
+                </div>
+            }
             <Table celled padded color='blue'>
                 <Table.Header>
                     <Table.Row>
