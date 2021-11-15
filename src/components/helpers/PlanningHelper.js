@@ -73,7 +73,9 @@ export const removeOnCallTime = (data, setData, onCallTimeId) => {
 export const removeAllOnCallTime = (data, setData) => {
     const { onCallTimes } = data
     onCallTimes.forEach(({ key }) => {
-        removeOnCallTime(data, setData, key)
+        if ( key !== 0 ) {
+            removeOnCallTime(data, setData, key)
+        }
     })
 }
 
@@ -159,7 +161,13 @@ export const resetData = (data, setData) => {
     data = {
         slots: [],
         people: [],
-        onCallTimes: [],
+        onCallTimes: [
+            {
+                key: 0,
+                text: "Pause",
+                value: 0
+            }
+        ],
         rulesByPerson: [],
         rulesBySlot: [],
         planning: {},
@@ -167,7 +175,7 @@ export const resetData = (data, setData) => {
             error: false,
             message: { status: null, statusMsg: null }
         },
-        onCallTimeCount: 0,
+        onCallTimeCount: 1,
         slotCount: 0,
         personCount: 0,
         loading: false,
@@ -228,7 +236,6 @@ export const importRules = async (data, setData, file, setFile, setIsRuleOpen) =
             onCallTimeCount
         } = newRules
         removeAllOnCallTime(data, setData)
-        console.log(adaptImportRules(data, rulesBySlot))
         data.onCallTimes = onCallTimes
         data.rulesBySlot = adaptImportRules(data, rulesBySlot)
         data.rulesByPerson = adaptImportRules(data, rulesByPerson)
@@ -284,8 +291,8 @@ export const generatePlanning = async (data, setData) => {
     })
     const config = {
         method: 'POST',
-        url: 'https://resplanning-back.herokuapp.com/generate/',
-        // url: 'http://localhost:8000/generate/',
+        // url: 'https://resplanning-back.herokuapp.com/generate/',
+        url: 'http://localhost:8000/generate/',
         headers: {
             'Content-Type': 'application/json'
         },

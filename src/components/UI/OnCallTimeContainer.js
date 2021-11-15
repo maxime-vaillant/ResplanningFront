@@ -10,18 +10,21 @@ const OnCallTimeContainer = ({ data, setData }) => {
 
     return (
         <>
+            <div>
+                <b>La première permanence complète le planning par défaut</b>
+            </div>
             {
                 data.onCallTimes.map(
-                    onCallTime =>
-                        <Label key={onCallTime.key} color={colors[onCallTime.key%colors.length]} horizontal style={{ marginTop: '1vh'}}>
-                            <Icon
+                    ({ key, text }) =>
+                        <Label key={key} color={colors[key%colors.length]} horizontal style={{ marginTop: '1vh'}}>
+                            { key !== 0 && <Icon
                                 name='remove'
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => removeOnCallTime(data, setData, onCallTime.key)}
-                            />
+                                onClick={() => removeOnCallTime(data, setData, key)}
+                            />}
                             <EditableLabel
-                                initialValue={onCallTime.text}
-                                save={value => updateOnCallTimes(data, setData, value, onCallTime.key)}
+                                initialValue={text}
+                                save={value => updateOnCallTimes(data, setData, value, key)}
                             />
                         </Label>
                 )
