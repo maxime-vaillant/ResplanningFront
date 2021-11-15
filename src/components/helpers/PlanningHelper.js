@@ -291,8 +291,8 @@ export const generatePlanning = async (data, setData) => {
     })
     const config = {
         method: 'POST',
-        // url: 'https://resplanning-back.herokuapp.com/generate/',
-        url: 'http://localhost:8000/generate/',
+        url: 'https://resplanning-back.herokuapp.com/generate/',
+        // url: 'http://localhost:8000/generate/',
         headers: {
             'Content-Type': 'application/json'
         },
