@@ -305,5 +305,6 @@
             "text": "22h30"
         }
     ],
-    "slotCount": 10
+    "slotCount": 10,
+    "onCallTimeCount": 7
 }
