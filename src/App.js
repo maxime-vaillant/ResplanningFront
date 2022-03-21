@@ -1,11 +1,12 @@
-import {Accordion, Container, Dimmer, Label, Loader, Message, Modal} from 'semantic-ui-react'
+import { Accordion, Container, Dimmer, Label, Loader, Message, Modal } from 'semantic-ui-react'
 import _ from 'lodash'
 import OnCallTimeContainer from './components/UI/OnCallTimeContainer'
 import AvailabilitiesContainer from './components/UI/AvailabilitiesContainer'
 import PlanningContainer from './components/UI/PlanningContainer'
 import usePlanning from './components/hooks/usePlanning'
 import RulesContainer from './components/UI/RulesContainer'
-import MenuContainer from "./components/UI/MenuContainer";
+import MenuContainer from './components/UI/MenuContainer'
+import Footer from './components/UI/Footer'
 
 function App() {
     const {
@@ -69,6 +70,7 @@ function App() {
                     fluid
                 />
             </Container>
+            <Footer />
         </>
 
     );
