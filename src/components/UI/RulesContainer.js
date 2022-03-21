@@ -18,7 +18,6 @@ const RulesContainer = ({ data, setData }) => {
     }))
     return (
         <Container>
-
             <Accordion exclusive={false} panels={panels} />
         </Container>
     )

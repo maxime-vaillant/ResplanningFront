@@ -116,8 +116,7 @@
                 3,
                 4,
                 5,
-                6,
-                7
+                6
             ],
             "people": [
                 -1
@@ -131,16 +130,16 @@
         },
         {
             "method": "exact",
-            "param": 2,
+            "param": 1,
             "counter": -1,
             "slots": [
+                0,
                 1,
                 2,
                 3,
                 4,
                 5,
-                6,
-                7
+                6
             ],
             "people": [
                 -1
@@ -153,32 +152,16 @@
         },
         {
             "method": "at_least",
-            "param": 4,
-            "counter": -1,
-            "slots": [
-                0
-            ],
-            "people": [
-                -1
-            ],
-            "on_call_times": [
-                "3"
-            ],
-            "exigency": 0,
-            "disable": false
-        },
-        {
-            "method": "at_least",
             "param": 5,
             "counter": -1,
             "slots": [
+                0,
+                1,
                 2,
                 3,
                 4,
                 5,
-                6,
-                7,
-                1
+                6
             ],
             "people": [
                 -1
@@ -200,8 +183,7 @@
                 3,
                 4,
                 5,
-                6,
-                7
+                6
             ],
             "people": [
                 -1
@@ -214,10 +196,10 @@
         },
         {
             "method": "exact",
-            "param": 3,
+            "param": 4,
             "counter": -1,
             "slots": [
-                8
+                7
             ],
             "people": [
                 -1
@@ -233,8 +215,8 @@
             "param": 1,
             "counter": -1,
             "slots": [
-                8,
-                9
+                7,
+                8
             ],
             "people": [
                 -1
@@ -250,8 +232,8 @@
             "param": 0,
             "counter": -1,
             "slots": [
-                8,
-                9
+                7,
+                8
             ],
             "people": [
                 -1
@@ -266,45 +248,41 @@
     "slots": [
         {
             "key": 0,
-            "text": "18h00"
+            "text": "18h20"
         },
         {
             "key": 1,
-            "text": "18h30"
-        },
-        {
-            "key": 2,
             "text": "19h00"
         },
         {
-            "key": 3,
+            "key": 2,
             "text": "19h30"
         },
         {
-            "key": 4,
+            "key": 3,
             "text": "20h00"
         },
         {
-            "key": 5,
+            "key": 4,
             "text": "20h30"
         },
         {
-            "key": 6,
+            "key": 5,
             "text": "21h00"
         },
         {
-            "key": 7,
+            "key": 6,
             "text": "21h30"
         },
         {
-            "key": 8,
+            "key": 7,
             "text": "22h00"
         },
         {
-            "key": 9,
+            "key": 8,
             "text": "22h30"
         }
     ],
-    "slotCount": 10,
+    "slotCount": 9,
     "onCallTimeCount": 7
 }

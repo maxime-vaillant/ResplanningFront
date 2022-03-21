@@ -19,8 +19,8 @@ const RulesTable = ({ name, data, setData }) => {
     } = useModalForm()
 
     const columnsName = name === 'person' ?
-        ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Lot', 'Exigence', 'Actif'] :
-        ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Exigence', 'Actif']
+        ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Lot', 'Actif'] :
+        ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Actif']
 
     return (
         <>
@@ -143,11 +143,13 @@ const RulesTable = ({ name, data, setData }) => {
                                         </Table.Cell>
                                     )
                                 }
+                                {/*
                                 <Table.Cell style={{ textAlign: 'center' }}>
                                     <Label circular color={'red'}>
                                         {item.exigency}
                                     </Label>
                                 </Table.Cell>
+                                */}
                                 <Table.Cell style={{ textAlign: 'center' }}>
                                     <Checkbox toggle checked={!item.disable} onChange={() => {
                                         item.disable = !item.disable

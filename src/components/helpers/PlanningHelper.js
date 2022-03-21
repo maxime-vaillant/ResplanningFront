@@ -1,4 +1,5 @@
 import axios from "axios"
+import { apiConfig } from "../utils/ApiConfig"
 
 export const addSlot = (data, setData) => {
     data.slots = [...data.slots, {key: data.slotCount, text: '00h00'}]
@@ -254,8 +255,7 @@ export const importCsv = async (data, setData, file, setFile, setIsImportOpen) =
         reqData.append('file', file)
         const config = {
             method: 'POST',
-            url: 'https://resplanning-back.herokuapp.com/parse-csv/',
-            // url: 'http://localhost:8000/parse-csv/',
+            url: apiConfig.API_URL + '/parse-csv/',
             data : reqData
         }
         await axios(config)
@@ -291,8 +291,7 @@ export const generatePlanning = async (data, setData) => {
     })
     const config = {
         method: 'POST',
-        url: 'https://resplanning-back.herokuapp.com/generate/',
-        // url: 'http://localhost:8000/generate/',
+        url: apiConfig.API_URL + '/generate/',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -307,7 +306,7 @@ export const generatePlanning = async (data, setData) => {
         })
         .catch(function (error) {
             data.callback.error = true
-            data.callback.message = { status: error.response.status, statusMsg: error.response.statusText }
+            data.callback.message = { status: error?.response?.status, statusMsg: error?.response?.statusText }
             data.loading = false
             setData({...data})
         });
