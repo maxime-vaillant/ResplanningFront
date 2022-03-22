@@ -48,7 +48,7 @@ const usePlanning = () => {
         },
         onCallTimeCount: onCallTimeCount,
         slotCount: slotCount,
-        personCount: 0,
+        personCount: 10,
         loading: false,
         confirmOpen: false
     })
