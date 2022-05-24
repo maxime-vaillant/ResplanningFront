@@ -97,9 +97,6 @@ const PlanningContainer = ({ data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button color='green' onClick={() => {addPerson(data, setData)}}>
-                Ajouter une personne
-            </Button>
             <Button color='red' onClick={() => resetPlanning(data, setData)}>Vider</Button>
         </>
     )

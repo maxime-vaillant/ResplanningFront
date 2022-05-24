@@ -16,7 +16,7 @@ function App() {
 
     const containers = [
         {title: 'Permanences', content: <OnCallTimeContainer data={data} setData={setData} />},
-        {title: 'Règles', content: <RulesContainer data={data} setData={setData} />},
+        {title: 'Contraintes', content: <RulesContainer data={data} setData={setData} />},
         {title: 'Disponibilités', content: <AvailabilitiesContainer data={data} setData={setData} />},
         {title: 'Planning', content: <PlanningContainer data={data} setData={setData} />},
     ]

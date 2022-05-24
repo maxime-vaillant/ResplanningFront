@@ -1,4 +1,4 @@
-import {Button, Container, Divider, Dropdown, Grid, Icon, Input, Label} from 'semantic-ui-react'
+import {Button, Checkbox, Container, Divider, Dropdown, Grid, Icon, Input, Label} from 'semantic-ui-react'
 import usePlanning from '../hooks/usePlanning'
 import useRulesForm from '../hooks/useRulesForm'
 import {
@@ -62,13 +62,18 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                         />
                     </Grid.Column>
                     <Grid.Column>
-                        <h3>Paramètre :</h3>
+                        <h3>Combien :</h3>
                     </Grid.Column>
                     <Grid.Column>
                         <Input
                             value={rule.param}
                             min={0}
-                            onChange={(i, datas) => handleChangeOnParam(rule, setRule, datas.value)}
+                            onChange={(i, datas) => {
+                                handleChangeOnParam(rule, setRule, datas.value)
+                                if (rule.counter !== -1) {
+                                    handleChangeOnCounter(rule, setRule, rule.param + 1)
+                                }
+                            }}
                             type='number'
                         />
                     </Grid.Column>
@@ -111,6 +116,22 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                         )
                     }
                 </Grid.Row>
+                { ruleName === 'person' &&
+                    (<Grid.Row columns={4}>
+                        <Grid.Column>
+                            <h3>À la suite ?</h3>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Checkbox
+                                toggle
+                                checked={rule.counter !== -1}
+                                onChange={() => {
+                                    handleChangeOnCounter(rule, setRule, rule.counter === -1 ? rule.param + 1 : -1)
+                                }}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>)
+                }
                 <Grid.Row columns={2}>
                     <Grid.Column>
                         <h3>Créneaux :</h3>
@@ -187,21 +208,6 @@ const RulesForm = ({ modalSettings, setModalSettings, ruleName, ruleId, data, se
                         )
                     }
                 </Grid.Row>
-                { ruleName === 'person' &&
-                (<Grid.Row columns={4}>
-                    <Grid.Column>
-                        <h3>Lot :</h3>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Input
-                            value={rule.counter}
-                            min={-1}
-                            onChange={(i, datas) => handleChangeOnCounter(rule, setRule, datas.value)}
-                            type='number'
-                        />
-                    </Grid.Column>
-                </Grid.Row>)
-                }
             </Grid>
             <Divider />
             <Button negative onClick={() => handleCloseOnModal(modalSettings, setModalSettings)}>Annuler</Button>

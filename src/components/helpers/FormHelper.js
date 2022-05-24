@@ -59,13 +59,23 @@ export const removePersonInRule = (rule, setRule, formData, setFormData, people,
     setFormData({...formData})
 }
 
-export const handleOpenConfirm = (data, setData) => {
-    data.confirmOpen = true
+export const handleOpenResetConfirm = (data, setData) => {
+    data.confirmResetOpen = true
     setData({...data})
 }
 
-export const handleCloseConfirm = (data, setData) => {
-    data.confirmOpen = false
+export const handleOpenResetDefaultConfirm = (data, setData) => {
+    data.confirmResetDefaultOpen = true
+    setData({...data})
+}
+
+export const handleCloseResetConfirm = (data, setData) => {
+    data.confirmResetOpen = false
+    setData({...data})
+}
+
+export const handleCloseResetDefaultConfirm = (data, setData) => {
+    data.confirmResetDefaultOpen = false
     setData({...data})
 }
 
@@ -102,7 +112,9 @@ export const submitForm = (modalSettings, setModalSettings, rule, ruleName, rule
         rules.push(rule)
     }
 
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
+
     modalSettings.isOpen = false
     setModalSettings({...modalSettings})
 }

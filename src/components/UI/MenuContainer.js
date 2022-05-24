@@ -1,13 +1,26 @@
 import React, { useState } from 'react'
 import { Button, Confirm, Container, Divider, Icon, Input, Label, Menu, Modal } from 'semantic-ui-react'
-import { generatePlanning, getCsvData, importCsv, importRules, resetData } from '../helpers/PlanningHelper'
-import { handleCloseConfirm, handleOpenConfirm } from '../helpers/FormHelper'
+import {
+    generatePlanning,
+    getCsvData,
+    importCsv,
+    importRules,
+    resetData,
+    resetDefaultData
+} from '../helpers/PlanningHelper'
+import {
+    handleCloseResetConfirm,
+    handleCloseResetDefaultConfirm,
+    handleOpenResetConfirm,
+    handleOpenResetDefaultConfirm
+} from '../helpers/FormHelper'
 import { CSVLink } from 'react-csv'
 import exportFromJSON from 'export-from-json'
 
 const MenuContainer = ({ data, setData }) => {
     const [isImportOpen, setIsImportOpen] = useState(false)
     const [isRuleOpen, setIsRuleOpen] = useState(false)
+    const [isResetOpen, setIsResetOpen] = useState(false)
     const [selectedRuleFile, setSelectedRuleFile] = useState(null)
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -45,10 +58,10 @@ const MenuContainer = ({ data, setData }) => {
                                         exportType: exportFromJSON.types.json})
                                     }
                                     style={{ cursor: 'pointer'}}
-                                >Exporter</Label>
+                                >Exporter les règles</Label>
                                 <Divider />
                                   <label htmlFor="file" style={{ cursor: 'pointer',fontWeight: 'bold', marginRight: '0.5vw' }}>
-                                    <Label color='violet'>Importer</Label>
+                                    <Label color='violet'>Importer des règles</Label>
                                 </label>
                                 <Input
                                     id='file'
@@ -65,6 +78,7 @@ const MenuContainer = ({ data, setData }) => {
                             </Modal.Actions>
                         </Modal>
                     </Menu.Item>
+                    {/*
                     <Menu.Item>
                         <Button color='violet' onClick={() => setIsImportOpen(true)}>Importation Frama</Button>
                         <Modal
@@ -101,19 +115,45 @@ const MenuContainer = ({ data, setData }) => {
                             </Modal.Actions>
                         </Modal>
                     </Menu.Item>
+                    */}
                     <Menu.Item>
                         <CSVLink data={getCsvData(data)} filename={"planning.csv"}>
                             <Button color='brown'>Exportation Planning</Button>
                         </CSVLink>
                     </Menu.Item>
                     <Menu.Item>
-                        <Button onClick={() => handleOpenConfirm(data, setData)} color='red'>Remise à zéro</Button>
-                        <Confirm
-                            open={data.confirmOpen}
-                            content='Es-tu sûr.e de vouloir remettre à zéro TOUTES les données de la page (permanences, règles, personnes...) ?'
-                            onCancel={() => handleCloseConfirm(data,  setData)}
-                            onConfirm={() => resetData(data, setData)}
-                        />
+                        <Button onClick={() => setIsResetOpen(true)} color='red'>Réinitialiser</Button>
+                        <Modal
+                            open={isResetOpen}
+                            onClose={() => setIsResetOpen(false)}
+                        >
+                            <Modal.Content>
+                                <Button onClick={() => handleOpenResetDefaultConfirm(data, setData)} color='orange'>Remettre les paramètres par défaut</Button>
+                                <Confirm
+                                    open={data.confirmResetDefaultOpen}
+                                    content='Es-tu sûr.e de vouloir remettre les paramètres par défaut de TOUTES les données de la page (permanences, règles, personnes...) ?'
+                                    onCancel={() => handleCloseResetDefaultConfirm(data, setData)}
+                                    onConfirm={() => {
+                                        resetDefaultData(data, setData)
+                                        setIsResetOpen(false)
+                                    }}
+                                />
+                                <Divider />
+                                <Button onClick={() => handleOpenResetConfirm(data, setData)} color='black'>Remise à zéro globale</Button>
+                                <Confirm
+                                    open={data.confirmResetOpen}
+                                    content='Es-tu sûr.e de vouloir remettre à zéro TOUTES les données de la page (permanences, règles, personnes...) ?'
+                                    onCancel={() => handleCloseResetConfirm(data, setData)}
+                                    onConfirm={() => {
+                                        resetData(data, setData)
+                                        setIsResetOpen(false)
+                                    }}
+                                />
+                            </Modal.Content>
+                            <Modal.Actions>
+                                <Button color='red' onClick={() => setIsResetOpen(false)}>Annuler</Button>
+                            </Modal.Actions>
+                        </Modal>
                     </Menu.Item>
                 </Menu.Menu>
             </Container>

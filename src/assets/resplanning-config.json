@@ -82,7 +82,8 @@
             ],
             "on_call_times": [
                 "1+2",
-                "0"
+                "0",
+                "4"
             ],
             "exigency": 0,
             "disable": false
