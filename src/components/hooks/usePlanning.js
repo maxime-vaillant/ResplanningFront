@@ -13,7 +13,7 @@ const {
 const usePlanning = () => {
     const colors = ['blue', 'red', 'orange', 'yellow', 'olive', 'green', 'teal', 'violet', 'purple', 'pink', 'brown']
 
-    const [data, setData] = useState({
+    const initialData = {
         slots: slots,
         people: [
             {key: 0, text: 'Personne'},
@@ -51,7 +51,9 @@ const usePlanning = () => {
         personCount: 10,
         loading: false,
         confirmOpen: false
-    })
+    }
+
+    const [data, setData] = useState(initialData)
 
     return {
         data,

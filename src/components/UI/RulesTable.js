@@ -19,7 +19,7 @@ const RulesTable = ({ name, data, setData }) => {
     } = useModalForm()
 
     const columnsName = name === 'person' ?
-        ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Lot', 'Actif'] :
+        ['', '', 'Méthode', 'Paramètre', 'Permanences', '', 'Créneaux', 'Personnes', 'Actif'] :
         ['', '', 'Méthode', 'Paramètre', 'Permanences', 'Créneaux', 'Personnes', 'Actif']
 
     return (
@@ -105,6 +105,13 @@ const RulesTable = ({ name, data, setData }) => {
                                         return null
                                     })}
                                 </Table.Cell>
+                                {
+                                    name === 'person' && (
+                                        <Table.Cell style={{ textAlign: 'center' }}>
+                                            {item.counter !== -1 && 'à la suite'}
+                                        </Table.Cell>
+                                    )
+                                }
                                 <Table.Cell>
                                     {item.slots.map(slot => {
                                         return(
@@ -131,18 +138,6 @@ const RulesTable = ({ name, data, setData }) => {
                                         )
                                     })}
                                 </Table.Cell>
-                                {
-                                    name === 'person' && (
-                                        <Table.Cell style={{ textAlign: 'center' }}>
-                                            {
-                                                (item.counter === -1 && !isEmpty(item.people) && item.people[0] === -1 && 'Tous') ||
-                                                (item.counter === -1 && !isEmpty(item.people) && item.people[0] !== -1 && item.people.length) ||
-                                                (item.counter === -1 && isEmpty(item.people) && 0) ||
-                                                (item.counter !== -1 && item.counter)
-                                            }
-                                        </Table.Cell>
-                                    )
-                                }
                                 {/*
                                 <Table.Cell style={{ textAlign: 'center' }}>
                                     <Label circular color={'red'}>
@@ -161,7 +156,7 @@ const RulesTable = ({ name, data, setData }) => {
                     }
                 </Table.Body>
             </Table>
-            <Button positive onClick={() => handleOpenOnModal(modalSettings, setModalSettings)}>Ajouter une règle</Button>
+            <Button positive onClick={() => handleOpenOnModal(modalSettings, setModalSettings)}>Ajouter une contrainte</Button>
         </>
     )
 }

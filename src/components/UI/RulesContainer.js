@@ -4,8 +4,8 @@ import _ from "lodash";
 
 const RulesContainer = ({ data, setData }) => {
     const containers = [
-        {title: 'Règles par créneau', content: <RulesTable name='slot' data={data} setData={setData} />},
-        {title: 'Règles par personne', content: <RulesTable name='person' data={data} setData={setData} />}
+        {title: 'Contraintes par créneau', content: <RulesTable name='slot' data={data} setData={setData} />},
+        {title: 'Contraintes par personne', content: <RulesTable name='person' data={data} setData={setData} />}
     ]
     const panels = _.times(containers.length, (i) => ({
         key: `panel-${i}`,

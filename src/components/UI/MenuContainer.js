@@ -45,10 +45,10 @@ const MenuContainer = ({ data, setData }) => {
                                         exportType: exportFromJSON.types.json})
                                     }
                                     style={{ cursor: 'pointer'}}
-                                >Exporter</Label>
+                                >Exporter les règles</Label>
                                 <Divider />
                                   <label htmlFor="file" style={{ cursor: 'pointer',fontWeight: 'bold', marginRight: '0.5vw' }}>
-                                    <Label color='violet'>Importer</Label>
+                                    <Label color='violet'>Importer des règles</Label>
                                 </label>
                                 <Input
                                     id='file'
@@ -113,7 +113,7 @@ const MenuContainer = ({ data, setData }) => {
                         <Confirm
                             open={data.confirmOpen}
                             content='Es-tu sûr.e de vouloir remettre à zéro TOUTES les données de la page (permanences, règles, personnes...) ?'
-                            onCancel={() => handleCloseConfirm(data,  setData)}
+                            onCancel={() => handleCloseConfirm(data, setData)}
                             onConfirm={() => resetData(data, setData)}
                         />
                     </Menu.Item>
