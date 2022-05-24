@@ -1,5 +1,6 @@
-import axios from "axios"
-import { apiConfig } from "../utils/ApiConfig"
+import axios from 'axios'
+import { apiConfig } from '../utils/ApiConfig'
+import { defaultData } from '../../assets/defaultData'
 
 export const addSlot = (data, setData) => {
     data.slots = [...data.slots, {key: data.slotCount, text: '00h00'}]
@@ -7,6 +8,8 @@ export const addSlot = (data, setData) => {
         data.planning[key][data.slotCount] = null
     )
     data.slotCount += 1
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -17,12 +20,16 @@ export const addPerson = (data, setData) => {
         data.planning[data.personCount][slot.key] = null
     })
     data.personCount += 1
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
 export const addOnCallTimes = (data, setData) => {
     data.onCallTimes = [...data.onCallTimes, {key: data.onCallTimeCount, text: 'Perm', value: data.onCallTimeCount}]
     data.onCallTimeCount += 1
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -37,6 +44,8 @@ export const removeSlot = (data, setData, slotId) => {
     data.rulesByPerson.forEach(item =>
         item.people = item.people.filter(e => e !== slotId)
     )
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -49,6 +58,8 @@ export const removePerson = (data, setData, personId) => {
     data.rulesByPerson.forEach(item =>
         item.people = item.people.filter(e => e !== personId)
     )
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -68,6 +79,8 @@ export const removeOnCallTime = (data, setData, onCallTimeId) => {
             }
         })
     })
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -86,6 +99,8 @@ export const removeRule = (rule, data, setData, index) => {
     } else if  (rule === 'person'){
         data.rulesByPerson = data.rulesByPerson.filter((e, i) => i !== index)
     }
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({ ...data })
 }
 
@@ -98,16 +113,22 @@ export const removeAllSlots = (data, setData) => {
 
 export const updateSlots = (data, setData, newSlot, slotId) => {
     data.slots.find(e => e.key === slotId).text = newSlot
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
 export const updatePeople = (data, setData, newPerson, personId) => {
     data.people.find(e => e.key === personId).text = newPerson.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
 export const updateOnCallTimes = (data, setData, newOnCallTime, onCallTimeId) => {
     data.onCallTimes.find(e => e.key === onCallTimeId).text = newOnCallTime
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -117,11 +138,15 @@ export const handleChangeOnAvailabilities = (data, setData, personId, slotId) =>
     } else {
         data.planning[personId][slotId] = null
     }
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
 export const handleChangeOnPlanning = (data, setData, value, personId, slotId) => {
     data.planning[personId][slotId] = value !== '' ? data.onCallTimes.find(e => e.value === value).key : null
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -180,9 +205,17 @@ export const resetData = (data, setData) => {
         slotCount: 0,
         personCount: 0,
         loading: false,
-        confirmOpen: false
+        confirmResetOpen: false,
+        confirmResetDefaultOpen: false,
     }
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
+}
+
+export const resetDefaultData = (data, setData) => {
+    localStorage.setItem("data", JSON.stringify(defaultData))
+    setData(defaultData)
 }
 
 export const resetPlanning = (data, setData) => {
@@ -193,6 +226,8 @@ export const resetPlanning = (data, setData) => {
             }
         })
     })
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
@@ -241,7 +276,10 @@ export const importRules = async (data, setData, file, setFile, setIsRuleOpen) =
         data.rulesBySlot = adaptImportRules(data, rulesBySlot)
         data.rulesByPerson = adaptImportRules(data, rulesByPerson)
         data.onCallTimeCount = onCallTimeCount
+
+        localStorage.setItem("data", JSON.stringify({...data}))
         setData({...data})
+
         setFile(null)
     }
     setIsRuleOpen(false)
@@ -249,7 +287,10 @@ export const importRules = async (data, setData, file, setFile, setIsRuleOpen) =
 
 export const importCsv = async (data, setData, file, setFile, setIsImportOpen) => {
     data.loading = true
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
+
     if (file !== null) {
         const reqData = new FormData()
         reqData.append('file', file)
@@ -275,12 +316,17 @@ export const importCsv = async (data, setData, file, setFile, setIsImportOpen) =
     setFile(null)
     setIsImportOpen(false)
     data.loading = false
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
 }
 
 export const generatePlanning = async (data, setData) => {
     data.loading = true
+
+    localStorage.setItem("data", JSON.stringify({...data}))
     setData({...data})
+
     const reqData = JSON.stringify({
         "planning": data.planning,
         "on_call_times": getIdsToSend(data.onCallTimes),
@@ -301,13 +347,18 @@ export const generatePlanning = async (data, setData) => {
         .then(function (response) {
             data.planning = JSON.parse(JSON.stringify(response.data.planning))
             data.loading = false
+
+            localStorage.setItem("data", JSON.stringify({...data}))
             setData({...data})
+
             console.log(data.planning)
         })
         .catch(function (error) {
             data.callback.error = true
             data.callback.message = { status: error?.response?.status, statusMsg: error?.response?.statusText }
             data.loading = false
+
+            localStorage.setItem("data", JSON.stringify({...data}))
             setData({...data})
         });
 }
