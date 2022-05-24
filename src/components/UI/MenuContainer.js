@@ -65,6 +65,7 @@ const MenuContainer = ({ data, setData }) => {
                             </Modal.Actions>
                         </Modal>
                     </Menu.Item>
+                    {/*
                     <Menu.Item>
                         <Button color='violet' onClick={() => setIsImportOpen(true)}>Importation Frama</Button>
                         <Modal
@@ -101,6 +102,7 @@ const MenuContainer = ({ data, setData }) => {
                             </Modal.Actions>
                         </Modal>
                     </Menu.Item>
+                    */}
                     <Menu.Item>
                         <CSVLink data={getCsvData(data)} filename={"planning.csv"}>
                             <Button color='brown'>Exportation Planning</Button>
