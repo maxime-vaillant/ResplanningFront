@@ -1,9 +1,3 @@
-const prod = {
-    API_URL: 'https://resplanning-back.herokuapp.com'
-}
+import { prod, dev, local } from './Config'
 
-const local = {
-    API_URL: 'http://127.0.0.1:8000'
-}
-
-export const apiConfig = prod
+export const apiConfig = process.env.REACT_ENV_APP === 'prod' ? prod : process.env.REACT_ENV_APP === 'dev' ? dev : local
