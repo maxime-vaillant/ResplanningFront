@@ -2,10 +2,6 @@
 
 node_modules
 
-### Config ###
-
-src/components/utils/Config.js
-
 ### Misc ###
 
 .idea
