@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiConfig } from '../utils/ApiConfig'
+import { apiConfig } from '../utils/Config'
 import { defaultData } from '../../assets/defaultData'
 
 export const addSlot = (data, setData) => {

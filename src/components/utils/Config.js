@@ -1,13 +1,3 @@
-const prod = {
-    API_URL: 'https://resplanning-back.herokuapp.com/'
+export const apiConfig = {
+    API_URL: 'https://resplanning-back.picasso-utc.fr'
 }
-
-const dev = {
-    API_URL: '###'
-}
-
-const local = {
-    API_URL: '###'
-}
-
-export { prod, dev, local }
